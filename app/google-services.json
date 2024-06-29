@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "18043249015",
+    "project_id": "datefit-122d2",
+    "storage_bucket": "datefit-122d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18043249015:android:b052700c91d6c1c1b18172",
+        "android_client_info": {
+          "package_name": "com.adebayodev.DateFit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXF3JitwhPKKojZcUh8OdbAwC8RyFViSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
