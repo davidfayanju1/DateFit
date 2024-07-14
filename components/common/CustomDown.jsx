@@ -13,10 +13,10 @@ const CustomDown = ({
 }) => {
   return (
     <View style={tw`${containerStyle}`}>
-      <Text style={tw`text-lg mb-2`}>{label}</Text>
+      <Text style={tw`text-md mb-2`}>{label}</Text>
       <View style={tw`border border-[#1C1C1C]/30 h-[3.2rem] rounded-md w-full`}>
         <Dropdown
-          style={tw`h-[3.2rem] w-full px-4 py-2`}
+          style={tw`h-[3.2rem] w-full px-4 py-2 text-[.8rem]`}
           data={data}
           labelField="label"
           valueField="value"

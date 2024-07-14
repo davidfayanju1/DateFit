@@ -2,7 +2,7 @@
   "expo": {
     "name": "DateFit",
     "slug": "DateFit",
-    "scheme": "DateFit",
+    "scheme": ["datefit"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,14 +15,18 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.adebayodev.DateFit"
+      "bundleIdentifier": "com.adebayodev.DateFit",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.adebayodev.DateFit"
+      "package": "com.adebayodev.DateFit",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -36,6 +40,9 @@
       "eas": {
         "projectId": "7ccf0fed-502b-4fa5-a58c-9f7e5e8941c6"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/7ccf0fed-502b-4fa5-a58c-9f7e5e8941c6"
     }
   }
 }

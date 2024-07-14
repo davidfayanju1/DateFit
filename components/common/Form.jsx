@@ -19,14 +19,16 @@ const Form = ({
 
   return (
     <View style={tw`${containerStyle}`}>
-      {label && <Text style={tw`text-lg mb-2`}>{label}</Text>}
+      {label && <Text style={tw`text-md mb-2`}>{label}</Text>}
       <View
         style={tw`border-solid ${
-          title === "Password" ? "flex-row items-center justify-center" : ""
-        } rounded-[6px] px-[1.3rem] border-[#1C1C1C]/30 border-[1px] w-full h-[3.2rem]`}
+          title === "Password" ? "flex-row items-center justify-start" : ""
+        } rounded-[6px] border-[#1C1C1C]/30 border-[1px] w-full h-[3.2rem]`}
       >
         <TextInput
-          style={tw`h-full w-full text-[1.1rem] ${inputStyle}`}
+          style={tw`h-full px-[1rem] ${
+            title === "Password" ? "w-[80%]" : "w-full"
+          } text-[1.1rem] ${inputStyle}`}
           value={value}
           placeholder={placeholder}
           onChangeText={handleChangeText}
@@ -34,13 +36,18 @@ const Form = ({
           secureTextEntry={title === "Password" && !togglePassword}
         />
         {title === "Password" && (
-          <TouchableOpacity onPress={() => setTogglePassword(!togglePassword)}>
-            {togglePassword ? (
-              <Feather name="eye" size={19} color="black" />
-            ) : (
-              <Password />
-            )}
-          </TouchableOpacity>
+          <View style={tw`items-center h-full w-[20%] justify-center`}>
+            <TouchableOpacity
+              style={tw`items-center justify-center h-full w-full`}
+              onPress={() => setTogglePassword(!togglePassword)}
+            >
+              {togglePassword ? (
+                <Feather name="eye" size={19} color="black" />
+              ) : (
+                <Password />
+              )}
+            </TouchableOpacity>
+          </View>
         )}
       </View>
     </View>

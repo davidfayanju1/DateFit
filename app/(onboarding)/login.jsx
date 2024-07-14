@@ -1,15 +1,21 @@
-import { View, Text, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import Form from "../../components/common/Form";
 import Button from "../../components/common/Button";
 import Checkbox from "../../components/common/Checkbox";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useAuth } from "../../AuthContext";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, isSuccess, isLoading } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -17,7 +23,11 @@ const Login = () => {
   });
 
   const handleLogin = () => {
-    console.log(form);
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Boss How You wan take login?");
+    } else {
+      login(form);
+    }
   };
 
   const [pressed, setPressed] = useState(false);
@@ -26,17 +36,23 @@ const Login = () => {
     setPressed(!pressed);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/verification1");
+    }
+  }, [isSuccess]);
+
   return (
     <KeyboardAwareScrollView style={tw`flex-1`}>
       <SafeAreaView style={tw`flex-1`}>
-        <View style={tw`flex-1 px-6 py-12`}>
+        <View style={tw`flex-1 px-[1rem] py-12`}>
           <Text
             style={tw`text-center text-2xl mb-12 text-[#007AFF] font-semibold`}
           >
             Date Fit
           </Text>
 
-          <Text style={tw`font-bold text-black text-[2.5rem] text-left`}>
+          <Text style={tw`font-bold text-black text-[2rem] text-left`}>
             Welcome Back
           </Text>
           <Text style={tw`text-black mb-10 text-lg text-left`}>
@@ -62,7 +78,7 @@ const Login = () => {
           />
 
           <View style={tw`items-start justify-between flex-row w-full`}>
-            <View style={tw`flex-row items-start justify-start gap-[.8rem]`}>
+            <View style={tw`flex-row items-start justify-start gap-[.5rem]`}>
               <Checkbox handlePressed={handlePressed} pressed={pressed} />
               <Text style={tw``}>Remember Me</Text>
             </View>
@@ -73,7 +89,7 @@ const Login = () => {
 
           <Button
             handlePress={handleLogin}
-            text={"Log In"}
+            text={isLoading ? <ActivityIndicator /> : "Log In"}
             textStyle={"font-semibold text-lg"}
             containerStyle={"w-full rounded-md bg-[#007AFF]"}
           />

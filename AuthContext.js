@@ -1,7 +1,8 @@
-// AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
 import { firebase, db, auth } from "./firebase";
 import { Alert } from "react-native";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 // Create the Auth Context with default value
 const AuthContext = createContext();
@@ -14,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const register = async (item) => {
     setIsLoading(true);
@@ -31,6 +33,8 @@ export const AuthProvider = ({ children }) => {
         email: item.email,
         phoneNumber: item.number,
       });
+
+      setUser(user);
     } catch (err) {
       console.log(err);
       Alert.alert("Error", err.message);
@@ -40,19 +44,33 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (item) => {
     setIsLoading(true);
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      const res = await auth.signInWithEmailAndPassword(
+        item.email,
+        item.password
+      );
+      const user = res.user;
+
+      setUser(user);
     } catch (error) {
-      console.error(error);
-      Alert.alert(error.message);
+      if (error) {
+        setIsLoading(false);
+        setIsSuccess(false);
+        Alert.alert(error.message);
+        console.error(error);
+      }
+    } finally {
+      setIsLoading(false);
+      setIsSuccess(true);
     }
   };
 
   const logout = async () => {
     try {
-      await firebase.auth().signOut();
+      await auth.signOut();
+      setUser(null);
     } catch (error) {
       console.error(error);
     }
@@ -73,19 +91,61 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateProfile = async (item) => {
+    const userRef = doc(db, "users", user.uid);
+    setIsLoading(true);
+
+    if (user) {
+      try {
+        // Update displayName and photoURL
+        await user.updateProfile({
+          displayName: item.userName,
+          // photoURL: item.photoURL, // If you have a photo URL to update
+        });
+
+        // Update other profile details in Firestore
+        await setDoc(
+          userRef,
+          {
+            gender: item.gender,
+            height: item.height,
+            country: item.country,
+            state: item.state,
+            dob: item.dob,
+            userName: item.userName,
+          },
+          { merge: true }
+        );
+
+        console.log("Profile updated successfully");
+        setIsSuccess(true);
+      } catch (error) {
+        console.error("Error updating profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.error("No user is signed in");
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log("User detected in onAuthStateChanged:", user);
         setUser(user);
       } else {
+        console.log("No user detected in onAuthStateChanged");
         setUser(null);
       }
+      setPageLoading(false);
     });
 
     return () => unsubscribe();
   }, []);
 
-  console.log(user, "User");
+  console.log(user, "internal");
 
   const value = {
     user,
@@ -96,9 +156,14 @@ export const AuthProvider = ({ children }) => {
     setIsLoading,
     isSuccess,
     fetchUserData,
+    updateProfile,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {pageLoading ? null : children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

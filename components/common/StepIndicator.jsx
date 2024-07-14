@@ -9,7 +9,9 @@ import {
 
 const StepIndicator = ({ currentStep }) => {
   return (
-    <View style={tw`flex-row justify-center my-[1rem]`}>
+    <View
+      style={tw`flex-row justify-center my-[1rem] px-[1rem] items-center mx-auto w-full`}
+    >
       <View style={tw`flex-row items-center justify-center h-[5rem]`}>
         <View
           style={tw`items-center justify-center rounded-full h-[3rem] w-[3rem] ${
@@ -19,7 +21,7 @@ const StepIndicator = ({ currentStep }) => {
           <User />
         </View>
         <Text
-          style={tw`w-23 ${
+          style={tw`w-20 ${
             currentStep === 2 ? "bg-[#007AFF]" : "bg-[#8A8A8E]"
           } h-[.1rem]`}
         ></Text>
@@ -34,7 +36,7 @@ const StepIndicator = ({ currentStep }) => {
           <Camera />
         </View>
         <Text
-          style={tw`w-23 ${
+          style={tw`w-20 ${
             currentStep === 3 ? "bg-[#007AFF]" : "bg-[#8A8A8E]"
           } h-[.1rem]`}
         ></Text>

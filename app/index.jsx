@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import Logo from "../assets/svgs/Logo";
 import { router } from "expo-router";
-import Landing from "./(onboaring)/landing";
+import Landing from "./(onboarding)/landing";
 
 const App = () => {
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.push("/(onboaring)/landing");
+      router.push("/(onboarding)/landing");
     }, 3000);
 
     // Clean up the timeout if the component is unmounted or if useEffect is called again

@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import tw from "twrnc";
@@ -13,7 +14,7 @@ import Check from "../../assets/svgs/Check";
 import Checkbox from "../../components/common/Checkbox";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useAuth } from "../../AuthContext";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator } from "react-native";
 
 const Signup = () => {
   const { register, setIsLoading, isLoading, user, isSuccess, fetchUserData } =
@@ -27,8 +28,17 @@ const Signup = () => {
   });
 
   const handleSignUp = () => {
-    register(form);
-    console.log(form);
+    if (
+      form.name === "" ||
+      form.number === "" ||
+      form.email === "" ||
+      form.password === ""
+    ) {
+      Alert.alert("Boss Pity us put something");
+    } else {
+      register(form);
+      console.log(form);
+    }
   };
 
   const [pressed, setPressed] = useState(false);
@@ -51,10 +61,8 @@ const Signup = () => {
           contentContainerStyle={tw`h-full w-full py-6 px-4`}
         >
           <View style={tw`flex-col mb-8 items-start justify-center`}>
-            <Text style={tw`text-[2.4rem] font-semibold`}>
-              Create an account
-            </Text>
-            <Text style={tw`text-lg`}>
+            <Text style={tw`text-[2rem] font-semibold`}>Create an account</Text>
+            <Text style={tw`text-md`}>
               Complete the sign up process to get started
             </Text>
           </View>
@@ -98,7 +106,7 @@ const Signup = () => {
 
             <View style={tw`flex-row items-start justify-start gap-[.8rem]`}>
               <Checkbox handlePressed={handlePressed} pressed={pressed} />
-              <Text style={tw`w-[90%]`}>
+              <Text style={tw`w-[90%] text-[.7rem]`}>
                 By ticking this box, you agree to our Terms and conditions and
                 private policy
               </Text>

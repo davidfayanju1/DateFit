@@ -38,7 +38,7 @@ const KycInterest = ({ setCurrentStep }) => {
           <TouchableOpacity
             onPress={() => handleAddInterest(item.name)}
             key={item.id}
-            style={tw`border border-blue-500 rounded-full px-14 py-3 m-2 ${
+            style={tw`border border-blue-500 rounded-full w-[9rem] py-3 m-2 ${
               selectedInterests.includes(item.name) ? "bg-blue-300" : ""
             }`}
           >

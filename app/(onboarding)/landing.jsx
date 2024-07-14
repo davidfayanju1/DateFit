@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
   Image,
   SafeAreaView,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import tw from "twrnc";
 import Dating from "../../assets/images/Dating.png";
 import GenZ from "../../assets/images/GenZ.png";
 import Group28 from "../../assets/images/Group28.png";
 import { useRouter } from "expo-router";
+import { useAuth } from "../../AuthContext";
 
 const slides = [
   {
@@ -45,14 +47,32 @@ const Landing = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const router = useRouter();
 
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      console.log("User detected, redirecting to /verification1");
+      router.push("/verification1");
+    } else {
+      console.log("No user detected");
+    }
+  }, [user, router]);
+  console.log(user);
+
   const renderItem = ({ item }) => (
-    <View style={tw`flex-1 bg-gray-100 mb-12 items-center justify-center`}>
-      <Text style={tw`text-[#007AFF] font-bold text-2xl`}>{item.title}</Text>
-      <Image source={item.image} style={tw`mt-6`} resizeMode="contain" />
+    <View style={tw`flex-1 items-center justify-center`}>
+      <Text style={tw`text-[#007AFF] font-bold text-2xl mb-[2rem]`}>
+        {item.title}
+      </Text>
+      <Image
+        source={item.image}
+        style={tw`w-[18rem] h-[18rem] self-center`}
+        resizeMode="contain"
+      />
       <Text style={tw`font-semibold text-lg text-center mt-4`}>
         {item.text}
       </Text>
-      <Text style={tw`mt-4 w-4/5 text-center text-base`}>{item.subText}</Text>
+      <Text style={tw`w-4/5 text-center text-base`}>{item.subText}</Text>
     </View>
   );
 
@@ -108,7 +128,9 @@ const Landing = () => {
   );
 
   const renderCustomButtons = () => (
-    <View style={tw`flex-row justify-between items-center w-full px-6 mt-4`}>
+    <View
+      style={tw`flex-row justify-between mb-[3rem] items-center w-full px-[1rem] mt-4`}
+    >
       <View>{activeIndex !== slides.length - 1 && renderSkipButton()}</View>
       {activeIndex === slides.length - 1
         ? renderDoneButton()
@@ -118,11 +140,13 @@ const Landing = () => {
 
   return (
     <SafeAreaView style={tw`flex-1 bg-gray-100`}>
-      <View style={tw`flex-1`}>
-        {renderItem({ item: slides[activeIndex] })}
-      </View>
-      <View style={tw`w-full mb-12`}>{renderPagination()}</View>
-      {renderCustomButtons()}
+      <ScrollView contentContainerStyle={tw`flex-1 pt-[1.5rem]`}>
+        <View style={tw`flex-1`}>
+          {renderItem({ item: slides[activeIndex] })}
+        </View>
+        <View style={tw`w-full my-[1rem]`}>{renderPagination()}</View>
+        {renderCustomButtons()}
+      </ScrollView>
     </SafeAreaView>
   );
 };

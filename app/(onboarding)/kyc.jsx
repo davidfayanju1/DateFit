@@ -1,17 +1,19 @@
 import { View, Text, ScrollView, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import tw from "twrnc";
 import StepIndicator from "../../components/common/StepIndicator";
 import KYCForm from "../../components/modules/kyc/KYCForm";
 import KycUpload from "../../components/modules/kyc/KycUpload";
 import KycInterest from "../../components/modules/kyc/KycInterest";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { router } from "expo-router";
 
 const Kyc = () => {
   const [currentStep, setCurrentStep] = useState(1);
+
   return (
-    <SafeAreaView style={tw`flex-1 bg-gray-100 px-6 py-4`}>
-      <View style={tw`flex-1 py-[2rem] px-[1rem]`}>
+    <SafeAreaView style={tw`flex-1 bg-gray-100 py-4`}>
+      <ScrollView style={tw`flex-1 py-[2rem] px-[.5rem]`}>
         {currentStep === 1 && (
           <View>
             <Text style={tw`font-bold text-[2.3rem] mb-[.3rem]`}>
@@ -30,7 +32,7 @@ const Kyc = () => {
         )}
         {currentStep === 3 && (
           <View>
-            <Text style={tw`font-bold text-[2.3rem] mb-[.3rem]`}>
+            <Text style={tw`font-bold text-[2rem] mb-[.3rem]`}>
               What are your Interests?
             </Text>
             <Text style={tw`text-[1.2rem]`}>
@@ -39,11 +41,13 @@ const Kyc = () => {
           </View>
         )}
 
-        <StepIndicator currentStep={currentStep} />
+        <View style={tw`px-[1rem]`}>
+          <StepIndicator currentStep={currentStep} />
+        </View>
         {currentStep === 1 && <KYCForm setCurrentStep={setCurrentStep} />}
         {currentStep === 2 && <KycUpload setCurrentStep={setCurrentStep} />}
         {currentStep === 3 && <KycInterest setCurrentStep={setCurrentStep} />}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
