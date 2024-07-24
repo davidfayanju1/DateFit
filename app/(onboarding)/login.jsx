@@ -24,7 +24,7 @@ const Login = () => {
 
   const handleLogin = () => {
     if (form.email === "" || form.password === "") {
-      Alert.alert("Boss How You wan take login?");
+      Alert.alert("Kindly input login details");
     } else {
       login(form);
     }
@@ -38,7 +38,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push("/verification1");
+      router.push("/profile");
     }
   }, [isSuccess]);
 

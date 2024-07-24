@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import tw from "twrnc";
 import Search from "../../components/common/Search";
@@ -14,6 +7,7 @@ import movies from "../../assets/images/movies.png";
 import gamesExplore from "../../assets/images/gamesExplore.png";
 import education from "../../assets/images/education.png";
 import sportsOverview from "../../assets/images/sportsOverview.png";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Explore = () => {
   return (
@@ -36,16 +30,16 @@ const Explore = () => {
         <View style={tw`w-full mb-6`}>
           <Text style={tw`text-left text-[1.5rem] mb-3`}>Fun & Relaxation</Text>
           <View style={tw`flex-row justify-between items-center gap-4`}>
-            <View style={tw`relative`}>
-              <Image source={movies} />
+            <View style={tw`relative w-[48%]`}>
+              <Image source={movies} style={tw`w-full rounded-[11px]`} />
               <Text
                 style={tw`absolute text-white font-semibold text-[1.4rem] bottom-[10%] left-[5%]`}
               >
                 Movies
               </Text>
             </View>
-            <View style={tw`relative`}>
-              <Image source={gamesExplore} />
+            <View style={tw`relative w-[48%]`}>
+              <Image source={gamesExplore} style={tw`w-full rounded-[11px]`} />
               <Text
                 style={tw`absolute text-white font-semibold text-[1.4rem] bottom-[10%] left-[5%]`}
               >
@@ -57,7 +51,7 @@ const Explore = () => {
         <View style={tw`w-full mb-5`}>
           <Text style={tw`text-left text-[1.5rem] mb-3`}>Discover</Text>
           <View style={tw`relative`}>
-            <Image source={education} />
+            <Image source={education} style={tw`w-full rounded-[11px]`} />
             <Text
               style={tw`absolute text-white font-semibold text-[1.4rem] bottom-[10%] left-[5%]`}
             >
@@ -68,7 +62,7 @@ const Explore = () => {
         <View style={tw`w-full`}>
           <Text style={tw`text-left text-[1.5rem] mb-3`}>Sports</Text>
           <View>
-            <Image source={sportsOverview} />
+            <Image source={sportsOverview} style={tw`w-full rounded-[11px]`} />
             <Text
               style={tw`absolute text-white font-semibold text-[1.4rem] bottom-[10%] left-[5%]`}
             >

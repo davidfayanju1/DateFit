@@ -34,7 +34,7 @@ const Signup = () => {
       form.email === "" ||
       form.password === ""
     ) {
-      Alert.alert("Boss Pity us put something");
+      Alert.alert("Kindly fill all required fields");
     } else {
       register(form);
       console.log(form);

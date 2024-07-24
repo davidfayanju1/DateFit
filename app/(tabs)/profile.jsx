@@ -19,7 +19,8 @@ import RateUs from "../../assets/svgs/tabs/RateUs";
 import LogOut from "../../assets/svgs/tabs/LogOut";
 import Help from "../../assets/svgs/tabs/Help";
 import Terms from "../../assets/svgs/tabs/Terms";
-import placeholder from "../../assets/images/placeholder.png";
+// import placeholder from "../../assets/images/placeholder.png";
+
 const Profile = () => {
   const { fetchUserData, user } = useAuth();
   const [userData, setUserData] = useState(null);
@@ -55,7 +56,7 @@ const Profile = () => {
         <View style={tw`items-center justify-center mb-[3rem]`}>
           <View style={tw`relative`}>
             <Image
-              source={userData?.img || placeholder}
+              source={guy}
               resizeMode="contain"
               style={tw`h-[6rem] w-[6rem] rounded-full mb-4`}
             />
@@ -71,7 +72,7 @@ const Profile = () => {
           )}
         </View>
 
-        <View style={tw`flex-col gap-12`}>
+        <View style={tw`flex-col gap-12 w-full`}>
           <View style={tw`flex-row items-center w-full justify-between`}>
             <View style={tw`flex-row gap-1 items-center justify-center`}>
               <About />

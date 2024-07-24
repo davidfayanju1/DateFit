@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, Alert } from "react-native";
+import { View, Text, ActivityIndicator, Alert, ScrollView } from "react-native";
 import tw from "twrnc";
 import Form from "../../common/Form";
 import { Dropdown } from "react-native-element-dropdown";
@@ -49,7 +49,7 @@ const KYCForm = ({ setCurrentStep }) => {
       form.country === "" ||
       form.state === ""
     ) {
-      Alert.alert("Fill required fields boss");
+      Alert.alert("Fill Required Fields");
     } else {
       updateProfile(form);
       console.log(form);
@@ -85,79 +85,81 @@ const KYCForm = ({ setCurrentStep }) => {
 
   return (
     <KeyboardAwareScrollView style={tw`flex-1`}>
-      <View style={tw`flex-1 min-h-full`}>
-        <Form
-          label="Username"
-          title="Username"
-          value={form.userName}
-          placeholder="Enter your username"
-          placeholderColor="#1C1C1C"
-          handleChangeText={(e) => setForm({ ...form, userName: e })}
-          containerStyle="mb-8"
-        />
-
-        <View style={tw`mb-8 w-full flex-row justify-between`}>
-          <CustomDown
-            label={"Gender"}
-            data={genderOptions}
-            placeholder={"Select a gender"}
-            value={form.gender}
-            containerStyle={"w-[49%]"}
-            handleTextChange={(item) => {
-              setForm({ ...form, gender: item.value });
-            }}
-          />
+      <ScrollView>
+        <View style={tw`min-h-full`}>
           <Form
-            label="Height"
-            title="Height"
-            value={form.height}
-            placeholder="Ft"
-            placeholderColor="#3A3A3A"
-            handleChangeText={(e) => setForm({ ...form, height: e })}
-            containerStyle="w-[49%]"
-            //   inputStyle={"text-right"}
+            label="Username"
+            title="Username"
+            value={form.userName}
+            placeholder="Enter your username"
+            placeholderColor="#1C1C1C"
+            handleChangeText={(e) => setForm({ ...form, userName: e })}
+            containerStyle="mb-8"
+          />
+
+          <View style={tw`mb-8 w-full flex-row justify-between`}>
+            <CustomDown
+              label={"Gender"}
+              data={genderOptions}
+              placeholder={"Select a gender"}
+              value={form.gender}
+              containerStyle={"w-[49%]"}
+              handleTextChange={(item) => {
+                setForm({ ...form, gender: item.value });
+              }}
+            />
+            <Form
+              label="Height"
+              title="Height"
+              value={form.height}
+              placeholder="Ft"
+              placeholderColor="#3A3A3A"
+              handleChangeText={(e) => setForm({ ...form, height: e })}
+              containerStyle="w-[49%]"
+              //   inputStyle={"text-right"}
+            />
+          </View>
+
+          <View style={tw`mb-8 w-full flex-row justify-between`}>
+            <CustomDown
+              label={"Country"}
+              data={countryOptions}
+              placeholder={""}
+              value={form.country}
+              containerStyle={"w-[49%]"}
+              handleTextChange={handleCountryChange}
+            />
+
+            <CustomDown
+              label={"State"}
+              data={stateOptions}
+              placeholder={""}
+              value={form.state}
+              containerStyle={"w-[49%]"}
+              handleTextChange={(item) => {
+                setForm({ ...form, state: item.value });
+              }}
+            />
+          </View>
+
+          <Form
+            label="Date Of Birth"
+            title="dob"
+            value={form.dob}
+            placeholder="DD/MM/YY"
+            placeholderColor="#1C1C1C"
+            handleChangeText={(e) => setForm({ ...form, dob: e })}
+            containerStyle="mb-8"
+          />
+
+          <Button
+            text={isLoading ? <ActivityIndicator /> : "Continue"}
+            textStyle={"font-semibold text-[1.2rem]"}
+            containerStyle={"rounded-[6px]"}
+            handlePress={handleVerification}
           />
         </View>
-
-        <View style={tw`mb-8 w-full flex-row justify-between`}>
-          <CustomDown
-            label={"Country"}
-            data={countryOptions}
-            placeholder={""}
-            value={form.country}
-            containerStyle={"w-[49%]"}
-            handleTextChange={handleCountryChange}
-          />
-
-          <CustomDown
-            label={"State"}
-            data={stateOptions}
-            placeholder={""}
-            value={form.state}
-            containerStyle={"w-[49%]"}
-            handleTextChange={(item) => {
-              setForm({ ...form, state: item.value });
-            }}
-          />
-        </View>
-
-        <Form
-          label="Date Of Birth"
-          title="dob"
-          value={form.dob}
-          placeholder="DD/MM/YY"
-          placeholderColor="#1C1C1C"
-          handleChangeText={(e) => setForm({ ...form, dob: e })}
-          containerStyle="mb-8"
-        />
-
-        <Button
-          text={isLoading ? <ActivityIndicator /> : "Continue"}
-          textStyle={"font-semibold text-[1.2rem]"}
-          containerStyle={"rounded-[6px]"}
-          handlePress={handleVerification}
-        />
-      </View>
+      </ScrollView>
     </KeyboardAwareScrollView>
   );
 };

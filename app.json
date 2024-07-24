@@ -2,12 +2,18 @@
   "expo": {
     "name": "DateFit",
     "slug": "DateFit",
-    "scheme": ["datefit"],
+    "scheme": [
+      "datefit"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -32,7 +38,10 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      "react-native-vision-camera"
+    ],
     "extra": {
       "router": {
         "origin": false

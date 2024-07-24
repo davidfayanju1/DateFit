@@ -8,9 +8,6 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { AuthProvider } from "../AuthContext";
 
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
 const RootLayout = () => {
   return (
     <AuthProvider>
@@ -18,6 +15,7 @@ const RootLayout = () => {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(pages)" options={{ headerShown: false }} />
       </Stack>
     </AuthProvider>
   );

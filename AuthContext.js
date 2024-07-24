@@ -130,6 +130,32 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchSingleUser = async (id) => {
+    try {
+      const userDoc = await db.collection("users").doc(id).get();
+      if (userDoc.exists) {
+        return userDoc.data();
+      } else {
+        throw new Error("User not found");
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const fetchAllUsers = async () => {
+    try {
+      const users = [];
+      const querySnapshot = await db.collection("users").get();
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() });
+      });
+      return users;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -157,6 +183,8 @@ export const AuthProvider = ({ children }) => {
     isSuccess,
     fetchUserData,
     updateProfile,
+    fetchSingleUser,
+    fetchAllUsers,
   };
 
   return (
